@@ -17,7 +17,8 @@
             justify-content: center;
             align-items: center;
             background: linear-gradient(#ffffff, #000000);
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
         }
 
         #enter-screen {
@@ -25,35 +26,55 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            width: 100%;
+            width: 100vw;
             background-color: #000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        #enter-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
         }
 
         #enter-button {
-            padding: 20px 40px;
-            font-size: 24px;
-            background-color: #000000;
-            color: white;
-            border: none;
+            padding: 20px 50px;
+            font-size: 26px;
+            background-color: #444;
+            color: #fff;
+            border: 2px solid #fff;
             cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         #enter-button:hover {
-            background-color: #444;
+            background-color: #222;
+            transform: scale(1.1);
         }
 
         .container {
             text-align: center;
             background-color: #333;
             padding: 40px;
-            border-radius: 10px;
+            border-radius: 15px;
             width: 350px;
-            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s ease;
+        }
+
+        .container.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
         }
 
         .profile-pic {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             background-color: #000;
             border-radius: 50%;
             margin: 0 auto 20px;
@@ -80,12 +101,11 @@
         h1 {
             color: #fff;
             margin-bottom: 10px;
-        }
-
-        h1::after {
-            content: '';
-            border-right: 2px solid #fff;
-            animation: blink 0.75s step-end infinite;
+            font-size: 24px;
+            animation: typing 3s steps(30, end) forwards;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
         }
 
         @keyframes typing {
@@ -93,30 +113,17 @@
             to { width: 100%; }
         }
 
-        @keyframes blink {
-            from, to { border-color: transparent; }
-            50% { border-color: #fff; }
-        }
-
-        h1 {
-            font-size: 22px;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-            animation: typing 3s steps(30, end) forwards;
-        }
-
         p {
             color: #d3d3d3;
             margin-bottom: 30px;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .social-icons a {
             text-decoration: none;
-            margin: 0 10px;
+            margin: 0 15px;
             color: #fff;
-            font-size: 24px;
+            font-size: 28px;
             transition: color 0.3s ease;
         }
 
@@ -130,9 +137,8 @@
         <button id="enter-button">Click to Enter</button>
     </div>
 
-    <audio id="bg-music" loop>
+    <audio id="bg-music" loop preload="auto">
         <source src="path_to_your_song.mp3" type="audio/mpeg">
-        Your browser does not support the audio tag.
     </audio>
 
     <div class="container">
@@ -165,8 +171,8 @@
         typeTitle();
 
         document.getElementById('enter-button').addEventListener('click', function() {
-            document.getElementById('enter-screen').style.display = 'none';
-            document.querySelector('.container').style.display = 'block';
+            document.getElementById('enter-screen').classList.add('hidden');
+            document.querySelector('.container').classList.add('visible');
             document.getElementById('bg-music').play();
         });
     </script>
