@@ -27,10 +27,15 @@
             align-items: center;
             height: 100vh;
             width: 100vw;
-            background-color: #000;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
             transition: opacity 0.5s ease, visibility 0.5s ease;
             visibility: visible;
             opacity: 1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
 
         #enter-screen.hidden {
@@ -82,12 +87,16 @@
             visibility: hidden;
             transform: scale(0.9);
             transition: opacity 0.8s ease, visibility 0.8s ease, transform 0.8s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
         }
 
         .container.visible {
             opacity: 1;
             visibility: visible;
-            transform: scale(1);
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .profile-pic {
